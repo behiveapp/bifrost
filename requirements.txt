@@ -1,0 +1,5 @@
+graphene
+Sanic
+Sanic-GraphQl
+Elasticsearch
+requests
