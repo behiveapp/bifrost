@@ -14,11 +14,14 @@ services:
       - SANIC_PORT=3000
       - SANIC_SHERLOCK_HOST=http://sherlockholmes
       - SANIC_SHERLOCK_PORT=3001
+      - SANIC_CART_SERVICE_HOST=http://cart_service
+      - SANIC_CART_SERVICE_PORT=3003
       - SANIC_ELASTICSEARCH_HOST=elasticsearch
       - SANIC_ELASTICSEARCH_PORT=9200
     depends_on:
       - sherlockholmes
       - elasticsearch
+      - cart_service
     stdin_open: true
     tty: true
   sherlockholmes:
@@ -51,7 +54,47 @@ services:
       - 3002:9200
     networks:
       - bridge
+  cart_service:
+    container_name: bifrost-cart_service
+    image: behive/cart-service
+    ports:
+      - 3003:3003
+    networks:
+      - bridge
+    environment:
+      - PORT=3003
+      - DATABASE_HOST=mongo:27017
+      - DATABASE_NAME=cart
+      - PRODUCTS_SERVICE_HOST=bifrost-products_service:3004
+    depends_on:
+      - mongo
+      - products_service
+    stdin_open: true
+    tty: true
+  products_service:
+    container_name: bifrost-products_service
+    image: behive/products-service
+    ports:
+      - 3004:3004
+    networks:
+      - bridge
+    environment:
+      - PORT=3004
+      - NODE_ENV=development
+      - MONGO_URL=mongodb://mongo/products
+    depends_on:
+      - mongo
+  mongo:
+    container_name: bifrost-mongo
+    image: mongo
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - 3005:27017
+    networks:
+      - bridge
 volumes:
   esdata:
+  mongo_data:
 networks:
   bridge:
