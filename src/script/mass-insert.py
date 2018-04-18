@@ -23,6 +23,7 @@ for identifier in identifiers:
   short_name = "{0} {1}".format(random.choice(first_name_parts), random.choice(second_name_parts))
   full_name = "{0} {1}".format(short_name, random.choice(third_name_parts))
   es.index(index='sellers', doc_type='sellers', body= {
+      "id": random.randrange(1000000000),
       "identifier": identifier,
       "full_name": full_name,
       "short_name": short_name
@@ -30,6 +31,7 @@ for identifier in identifiers:
 
   for code in product_codes:
     es.index(index='products', doc_type='products', body= {
+      "id": random.randrange(1000000000),
       "seller_identifier": identifier,
       "code": code,
       "name": random.choice(product_names),
