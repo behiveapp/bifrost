@@ -3,3 +3,4 @@ Sanic
 Sanic-GraphQl
 Elasticsearch
 requests
+sanic-cors

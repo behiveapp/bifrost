@@ -2,10 +2,12 @@ from sanic import Sanic
 from sanic_graphql import GraphQLView
 from lib.graphql.schema import schema
 from graphql.execution.executors.asyncio import AsyncioExecutor
+from sanic_cors import CORS
 # import pdb; pdb.set_trace()
 
 app = Sanic(__name__)
 app.debug = True
+CORS(app, automatic_options=True)
 
 class GraphQL(GraphQLView):
   def get_root_value(self, request):
