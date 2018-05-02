@@ -8,6 +8,8 @@ class Product(graphene.ObjectType):
   name = graphene.String()
   code = graphene.String()
   categories = graphene.List(graphene.String)
+  price = graphene.Float()
+  description = graphene.String()
 
 def resolve_Products(info):
   return format_products(ProductModel.get_results(info.root_value.json['query']))
