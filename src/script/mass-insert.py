@@ -3,12 +3,8 @@ import random
 from elasticsearch import Elasticsearch
 
 es = Elasticsearch('{0}:{1}'.format(os.environ['SANIC_ELASTICSEARCH_HOST'], os.environ['SANIC_ELASTICSEARCH_PORT']))
-
-try:
-  es.indices.delete(index='sellers')
-  es.indices.delete(index='products')
-except:
-  pass
+es.indices.delete(index='sellers')
+es.indices.delete(index='products')
 
 identifiers = ['01001001000113', '02002002000226', '03003003000339', '67147304624', '35455326236', '87825205693', '19163724901', '43026382221', '65641660604', '78920737525', '31444420623', '42443738370', '31760664499', '37699776291', '63362321909', '24680731699', '28192281949', '31327639696', '11073242897']
 first_name_parts = ['Casas', 'Grupos', 'Empreiteiras', 'Imobiliárias', 'Armazéns', 'Papelarias', 'Docerias']
@@ -35,7 +31,9 @@ for identifier in identifiers:
       "seller_identifier": identifier,
       "code": code,
       "name": random.choice(product_names),
-      "categories": [random.choice(product_categories), random.choice(product_categories)]
+      "categories": [random.choice(product_categories), random.choice(product_categories)],
+      "description" : "A brief description of the product",
+      "price": round(random.uniform(7,50), 2)
     })
 
 
