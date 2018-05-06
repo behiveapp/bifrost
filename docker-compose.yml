@@ -18,10 +18,13 @@ services:
       - SANIC_CART_SERVICE_PORT=3003
       - SANIC_ELASTICSEARCH_HOST=elasticsearch
       - SANIC_ELASTICSEARCH_PORT=9200
+      - SANIC_BUYERS_SERVICE_HOST=http://buyers_service
+      - SANIC_BUYERS_SERVICE_PORT=3006
     depends_on:
       - sherlockholmes
       - elasticsearch
       - cart_service
+      - buyers_service
     stdin_open: true
     tty: true
   sherlockholmes:
@@ -82,6 +85,19 @@ services:
       - PORT=3004
       - NODE_ENV=development
       - MONGO_URL=mongodb://mongo/products
+    depends_on:
+      - mongo
+  buyers_service:
+    container_name: bifrost-buyers_service
+    image: behive/buyers-service
+    ports:
+      - 3006:3006
+    networks:
+      - bridge
+    environment:
+      - PORT=3006
+      - NODE_ENV=development
+      - MONGO_URL=mongodb://mongo/buyers
     depends_on:
       - mongo
   mongo:

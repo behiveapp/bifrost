@@ -10,12 +10,16 @@ class Cart(graphene.ObjectType):
   id = graphene.String()
   createdAt = graphene.String()
   updatedAt = graphene.String()
+  status = graphene.String()
   Buyer = graphene.Field(Buyer)
   Seller = graphene.Field(Seller)
   Products = graphene.List(lambda: Product)
 
 def resolve_Cart(info, id):
   return __format_cart(CartModel.get_one(id))
+
+def resolve_Carts(info, sellerId):
+  return map(__format_cart, CartModel.from_seller(sellerId))
 
 def __format_cart(data):
   cart = Cart()
