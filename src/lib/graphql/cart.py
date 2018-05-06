@@ -11,6 +11,7 @@ class Cart(graphene.ObjectType):
   createdAt = graphene.String()
   updatedAt = graphene.String()
   status = graphene.String()
+  totalPrice = graphene.Float()
   Buyer = graphene.Field(Buyer)
   Seller = graphene.Field(Seller)
   Products = graphene.List(lambda: Product)
