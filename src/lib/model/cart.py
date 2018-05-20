@@ -21,3 +21,9 @@ class Cart:
     json = {"buyer": buyer, "seller": seller}
     response = requests.post(url=url, json=json)
     return response.json() if response.ok else []
+
+  @classmethod
+  def add_product(cls, cart_id, product_id):
+    url = "{0}:{1}/{2}/product/{3}".format(os.environ['SANIC_CART_SERVICE_HOST'], os.environ['SANIC_CART_SERVICE_PORT'], cart_id, product_id)
+    response = requests.post(url=url)
+    return response.json() if response.ok else []
