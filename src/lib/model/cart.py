@@ -27,3 +27,9 @@ class Cart:
     url = "{0}:{1}/{2}/product/{3}".format(os.environ['SANIC_CART_SERVICE_HOST'], os.environ['SANIC_CART_SERVICE_PORT'], cart_id, product_id)
     response = requests.post(url=url)
     return response.json() if response.ok else []
+
+  @classmethod
+  def close_cart(cls, cart_id):
+    url = "{0}:{1}/{2}/close".format(os.environ['SANIC_CART_SERVICE_HOST'], os.environ['SANIC_CART_SERVICE_PORT'], cart_id)
+    response = requests.put(url=url)
+    return response.json() if response.ok else []

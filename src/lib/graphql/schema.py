@@ -5,6 +5,7 @@ from lib.graphql.buyer import Buyer, resolve_Buyers
 from lib.graphql.cart import Cart as CartSchema, resolve_Cart, resolve_Carts
 from lib.graphql.mutations.open_cart import OpenCart
 from lib.graphql.mutations.add_product import AddProduct
+from lib.graphql.mutations.close_cart import CloseCart
 
 class Query(graphene.ObjectType):
   Sellers = graphene.Field(graphene.List(lambda: Seller), name=graphene.String())
@@ -30,6 +31,7 @@ class Query(graphene.ObjectType):
 
 class Mutations(graphene.ObjectType):
     open_cart = OpenCart.Field()
+    close_cart = CloseCart.Field()
     add_product = AddProduct.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutations)

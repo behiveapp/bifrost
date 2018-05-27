@@ -27,7 +27,7 @@ for identifier in identifiers:
 
   for code in product_codes:
     es.index(index='products', doc_type='products', body= {
-      "id": random.randrange(1000000000),
+      "id": '5aef97366d9276001a8b4395',
       "seller_identifier": identifier,
       "code": code,
       "name": random.choice(product_names),
