@@ -12,7 +12,7 @@ class Query(graphene.ObjectType):
   Products = graphene.Field(graphene.List(lambda: Product), name=graphene.String(), category=graphene.String(), sellerIdentifier=graphene.String())
   Buyers = graphene.Field(graphene.List(lambda: Buyer))
   Cart = graphene.Field(CartSchema, id=graphene.String())
-  Carts = graphene.Field(graphene.List(lambda: CartSchema), sellerId=graphene.String(), status=graphene.Int())
+  Carts = graphene.Field(graphene.List(lambda: CartSchema), sellerId=graphene.String(), buyerId=graphene.String(), status=graphene.Int())
 
   def resolve_Sellers(self, info, name):
     return resolve_Sellers(info)
@@ -23,8 +23,8 @@ class Query(graphene.ObjectType):
   def resolve_Cart(self, info, id = None):
     return resolve_Cart(info, id)
 
-  def resolve_Carts(self, info, sellerId = None, status = 0):
-    return resolve_Carts(info, sellerId, status)
+  def resolve_Carts(self, info, sellerId = None, buyerId = None, status = 0):
+    return resolve_Carts(info, sellerId, buyerId, status)
 
   def resolve_Buyers(self, info):
     return resolve_Buyers()
