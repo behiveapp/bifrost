@@ -10,8 +10,8 @@ class Cart:
     return response.json() if response.ok else {}
 
   @classmethod
-  def from_seller(cls, sellerId):
-    url = "{0}:{1}/from-seller/{2}".format(os.environ['SANIC_CART_SERVICE_HOST'], os.environ['SANIC_CART_SERVICE_PORT'], sellerId)
+  def from_seller(cls, sellerId, status):
+    url = "{0}:{1}/from-seller/{2}?status={3}".format(os.environ['SANIC_CART_SERVICE_HOST'], os.environ['SANIC_CART_SERVICE_PORT'], sellerId, status)
     response = requests.get(url=url)
     return response.json() if response.ok else []
 

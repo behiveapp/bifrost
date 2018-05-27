@@ -19,8 +19,8 @@ class Cart(graphene.ObjectType):
 def resolve_Cart(info, id):
   return format_cart(CartModel.get_one(id))
 
-def resolve_Carts(info, sellerId):
-  return map(format_cart, CartModel.from_seller(sellerId))
+def resolve_Carts(info, sellerId, status):
+  return map(format_cart, CartModel.from_seller(sellerId, status))
 
 def format_cart(data):
   cart = Cart()
